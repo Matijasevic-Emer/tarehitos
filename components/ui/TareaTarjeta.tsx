@@ -19,8 +19,8 @@ const TareaTarjeta = ({title,desc,date,isCompleted}:Props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{desc}</CardDescription>
+        <CardTitle className="text-xl font-semibold text-amber-700">{title}</CardTitle>
+        <CardDescription className="text-sm text-gray-600">{desc}</CardDescription>
       </CardHeader>
         <CardAction>{isCompleted ? "👍" : "🤞"}</CardAction>
       <CardContent>
