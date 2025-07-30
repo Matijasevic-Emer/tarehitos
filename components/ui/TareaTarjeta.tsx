@@ -9,19 +9,25 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-const TareaTarjeta = () => {
+type Props = {
+    title:string,
+    desc:string,
+    date:Date,
+    isCompleted:boolean
+}
+const TareaTarjeta = ({title,desc,date,isCompleted}:Props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
-        <CardAction>Card Action</CardAction>
+        <CardTitle className="text-xl font-semibold text-amber-700">{title}</CardTitle>
+        <CardDescription className="text-sm text-gray-600">{desc}</CardDescription>
       </CardHeader>
+        <CardAction>{isCompleted ? "👍" : "🤞"}</CardAction>
       <CardContent>
         <p>Card Content</p>
       </CardContent>
       <CardFooter>
-        <p>Card Footer</p>
+        <p>{date?.toDateString()}</p>
       </CardFooter>
     </Card>
   );
