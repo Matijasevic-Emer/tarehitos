@@ -1,3 +1,4 @@
+import CitaRotativa from "@/components/ui/CitaRotativa";
 import Panel from "@/components/ui/Panel";
 
 export default function Home() {
@@ -13,6 +14,9 @@ export default function Home() {
           <strong>TareHitos</strong> y gatitos🐈‍⬛
         </p>
         <Panel />
+        <div className="flex flex-col items-center justify-center  sm:pt-10">
+          <CitaRotativa />
+        </div>
       </div>
     </main>
   );
