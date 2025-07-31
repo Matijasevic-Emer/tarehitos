@@ -16,12 +16,12 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // 👈 Estado para loader
+  const [isLoading, setIsLoading] = useState(false); 
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true); // 👈 Mostrar loader
+    setIsLoading(true); 
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -43,7 +43,7 @@ export default function LoginPage() {
       localStorage.setItem("userId", data.id);
       localStorage.setItem("teamId", data.teamId);
 
-      router.push("/"); // Redirige a la home
+      router.push("/"); // voy a la home
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || "Error al iniciar sesión");
