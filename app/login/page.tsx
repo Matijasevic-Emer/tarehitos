@@ -1,4 +1,5 @@
 "use client";
+import dynamic from "next/dynamic";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -8,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader } from "@/components/ui/player/Loader";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,12 +16,21 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // 👈 Estado para loader
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Cargar Loader sin SSR ME rompe el build en el deploy y no puedo desactivar laregla ESLint por consigna del challege
+  // const Loader = dynamic(() => import("@/components/ui/player/Loader"), {
+  //   ssr: false,
+  // });
+
+  const Loader = dynamic(
+    () => import("@/components/ui/player/Loader").then((mod) => mod.Loader),
+    { ssr: false }
+  );
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true); // 👈 Mostrar loader
+    setIsLoading(true);
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -43,10 +52,12 @@ export default function LoginPage() {
       localStorage.setItem("userId", data.id);
       localStorage.setItem("teamId", data.teamId);
 
-      router.push("/"); // Redirige a la home
-    } catch (err: any) {
-      setError(err.message || "Error al iniciar sesión");
-      setIsLoading(false); 
+      router.push("/"); // voy a la home
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Error al iniciar sesión");
+      }
+      setIsLoading(false);
     }
   };
 

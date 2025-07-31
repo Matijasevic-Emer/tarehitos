@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import Link from "next/link";
 
 export function CreateTaskForm() {
   const router = useRouter();
@@ -119,6 +120,7 @@ export function CreateTaskForm() {
             <SelectValue placeholder="Estado" />
           </SelectTrigger>
           <SelectContent>
+            {/* Por ahora estos dos hardocodeado despues veo si lo hago editble o con una gestion de estados */}
             <SelectItem value="Activa">Activa</SelectItem>
             <SelectItem value="Completada">Completada</SelectItem>
           </SelectContent>
@@ -133,6 +135,11 @@ export function CreateTaskForm() {
       <Button type="submit" className="w-full">
         Crear Tarea
       </Button>
+      <Link href="/tasks" className="w-full">
+        <Button variant="outline" type="button" className="w-full">
+          Cancelar
+        </Button>
+      </Link>
     </form>
   );
 }

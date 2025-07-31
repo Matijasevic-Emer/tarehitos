@@ -12,6 +12,14 @@ import {
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  teamId: string;
+  userUID: string;
+}
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
@@ -24,17 +32,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export const getUsersByTeamId = async (teamId: string) => {
-  const usersCollection = collection(db, "users");
-  const q = query(usersCollection, where("teamId", "==", teamId));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-};
 
 export const getUserById = async (userId: string) => {
   const userRef = doc(db, "users", userId);
   const userSnap = await getDoc(userRef);
   return userSnap.exists() ? { id: userSnap.id, ...userSnap.data() } : null;
+};
+
+//TODO: Revisar ya que por el momento no se usa ninguno de aca en adelante, solo uso el getUserById para el usuario invitado o lo hardcodeo en localStorage segun me de el tiempo de terminar el desarrollo basico pedido
+export const getUsersByTeamId = async (teamId: string) => {
+  const usersCollection = collection(db, "users");
+  const q = query(usersCollection, where("teamId", "==", teamId));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
 export const getUserByUID = async (uid: string) => {
@@ -48,18 +58,15 @@ export const getUserByUID = async (uid: string) => {
   return null;
 };
 
-export const createUser = async (user: any) => {
+export const createUser = async (user: User) => {
   const usersCollection = collection(db, "users");
   const docRef = await addDoc(usersCollection, user);
   return docRef.id;
-};
-
-export const updateUser = async (userId: string, updatedUser: any) => {
-  const userRef = doc(db, "users", userId);
-  await updateDoc(userRef, updatedUser);
 };
 
 export const deleteUser = async (userId: string) => {
   const userRef = doc(db, "users", userId);
   await deleteDoc(userRef);
 };
+
+

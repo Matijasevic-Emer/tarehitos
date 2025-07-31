@@ -13,6 +13,8 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import { Loader } from "@/components/ui/player/Loader";
+import Link from "next/link";
 
 const EditTaskPage = () => {
   const router = useRouter();
@@ -81,7 +83,7 @@ const EditTaskPage = () => {
     }
   };
 
-  if (loading) return <p className="text-center">Cargando tarea...</p>;
+  if (loading) return <Loader />;
 
   return (
     <main className="flex min-h-screen flex-col items-center">
@@ -150,6 +152,11 @@ const EditTaskPage = () => {
         <Button type="submit" className="w-full">
           Guardar Cambios
         </Button>
+        <Link href="/tasks" className="w-full cursor-pointer">
+          <Button variant="outline" className="w-full cursor-pointer">
+            Cancelar
+          </Button>
+        </Link>
       </form>
     </div>
   </main>

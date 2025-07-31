@@ -2,11 +2,11 @@ import { getUserByUID } from "@/lib/firestore/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  request: NextRequest,
-  context: { params: { UID: string } }
+  req: NextRequest,
+   { params }: { params: Promise<{ UID: string }> },
 ) {
-  const UID = context?.params?.UID;
-  console.log("params:", context.params);
+  const  UID  = (await params).UID;
+  
   if (!UID) {
     return NextResponse.json({ message: "UID missing" }, { status: 400 });
   }
