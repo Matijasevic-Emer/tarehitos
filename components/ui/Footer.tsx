@@ -8,13 +8,20 @@ export default function Footer() {
         <div className="text-center md:text-left">
           <p className="text-sm">Corrientes, Argentina</p>
         </div>
-          <p className="text-sm">by <span className="font-semibold">ematijasevic🦦</span></p>
+        <Link href="https://ematijasevic.com.ar/" target="_blank">
+          <p className="text-sm">
+            by <span className="font-semibold">ematijasevic🦦</span>
+          </p>
+        </Link>
 
         <div className="flex gap-4 items-center justify-center">
           <Link href="https://github.com/Matijasevic-Emer" target="_blank">
             <Github className="h-5 w-5 hover:text-primary transition" />
           </Link>
-          <Link href="https://www.linkedin.com/in/emerson-matijasevic/" target="_blank">
+          <Link
+            href="https://www.linkedin.com/in/emerson-matijasevic/"
+            target="_blank"
+          >
             <Linkedin className="h-5 w-5 hover:text-primary transition" />
           </Link>
           <Link href="https://ematijasevic.com.ar/" target="_blank">
