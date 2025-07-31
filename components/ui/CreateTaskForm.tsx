@@ -119,6 +119,7 @@ export function CreateTaskForm() {
             <SelectValue placeholder="Estado" />
           </SelectTrigger>
           <SelectContent>
+            {/* Por ahora estos dos hardocodeado despues veo si lo hago editble o con una gestion de estados */}
             <SelectItem value="Activa">Activa</SelectItem>
             <SelectItem value="Completada">Completada</SelectItem>
           </SelectContent>

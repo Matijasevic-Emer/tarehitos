@@ -11,6 +11,23 @@ import {
   query,
   where,
 } from "firebase/firestore";
+export interface Tarea {
+  id?: string; // puede venir o no porque Firestore lo genera
+  name: string;
+  description: string;
+  status: string;
+  estimatedStartDate: string;
+  estimatedFinishDate: string;
+  createdDate: string;
+  userAssigned: string;
+  columnId: number;
+  userInvolved: string; // JSON.stringify creo
+  tutorUser: string;
+  createdUser: string;
+  boardId: string;
+  points: string;
+}
+
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -23,6 +40,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
 
 export const getTasksByUserId = async (userId: string) => {
   const tasksCollection = collection(db, "tasks");
@@ -44,18 +62,23 @@ export const getTaskById = async (taskId: string) => {
   return taskSnap.exists() ? { id: taskSnap.id, ...taskSnap.data() } : null;
 };
 
-export const createTask = async (task: any) => {
+export const createTask = async (task: Tarea) => {
   const tasksCollection = collection(db, "tasks");
   const docRef = await addDoc(tasksCollection, task);
   return docRef.id;
 };
 
-export const updateTask = async (taskId: string, updatedTask: any) => {
+export const updateTask = async (taskId: string, updatedTask: Tarea) => {
+  // const taskRef = doc(db, "tasks", taskId);
+  // await updateDoc(taskRef, updatedTask);
+
+  const { id, ...taskData } = updatedTask; // 🔥 omitimos id
   const taskRef = doc(db, "tasks", taskId);
-  await updateDoc(taskRef, updatedTask);
+  await updateDoc(taskRef, taskData);
 };
 
 export const deleteTask = async (taskId: string) => {
   const taskRef = doc(db, "tasks", taskId);
   await deleteDoc(taskRef);
 };
+

@@ -44,9 +44,11 @@ export default function LoginPage() {
       localStorage.setItem("teamId", data.teamId);
 
       router.push("/"); // Redirige a la home
-    } catch (err: any) {
-      setError(err.message || "Error al iniciar sesión");
-      setIsLoading(false); 
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Error al iniciar sesión");
+      }
+      setIsLoading(false);
     }
   };
 
