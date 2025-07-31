@@ -17,17 +17,17 @@ export default function Panel() {
   const handleLogout = () => {
     localStorage.removeItem("uid");
     setUid(null);
-    // Podés agregar navegación o feedback visual si querés
   };
 
   const handleGuest = () => {
+    //TODO: uso el id de invitado hardcodeado hasta que se agregue la gestion de usuarios con Login
+    //TODO: en lugar de usar localStorage deberia usar redux o context o algo equivalente en NextJS
     localStorage.setItem("uid", "Ppj1R2wDDYgeishZNJEp6DPl1OO2");
     setUid("Ppj1R2wDDYgeishZNJEp6DPl1OO2");
-    // Podés agregar navegación o feedback visual si querés
   };
 
   return (
-    <div className="flex flex-col gap-4 items-center pt-40">
+    <div className="flex flex-col gap-4 items-center pt-20">
       {uid ? (
         <>
           <Link href="/tasks" className="sm:w-60">
@@ -47,6 +47,7 @@ export default function Panel() {
             <Eye className="mr-2 h-5 w-5" />
             Entrar como Invitado
           </Button>
+          {/* TODO: Agregar login y registro por el momento uso el user creado a mano en firebase como invitado */}
           {/* <Link href="/login" className="sm:w-60">
             <Button className="sm:w-60 cursor-pointer ">
               <LogIn className="mr-2 h-5 w-5" />

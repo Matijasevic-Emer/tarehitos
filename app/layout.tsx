@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import ResponsiveSidebar from "@/components/ui/ResponsiveSidebar";
 import Footer from "@/components/ui/Footer";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className="font-sans antialiased"
       >
         <ResponsiveSidebar />
+        <Toaster />
         <section className=" bg-[url('/assets/images/grid.png')]         /* Mobile */
         sm:bg-[url('/assets/images/grid.png')]         /* Desktop */
         bg-no-repeat bg-cover bg-center 
