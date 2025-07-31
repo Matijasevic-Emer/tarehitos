@@ -26,11 +26,16 @@ export default function TasksPage() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const userId = localStorage.getItem("userId");
+        //Lo hardcodeo porque en el deploy no funca
+        if (!localStorage.getItem("userId"))
+          localStorage.setItem("userId","3bvoL39u6qwcQHWu02OL");
 
+        // const userId = localStorage.getItem("userId");
+        const userId = "3bvoL39u6qwcQHWu02OL"
+        
         if (!userId)
           throw new Error("No se encontró el userId en localStorage");
-
+          
         const res = await fetch(`/api/tasks/user?userId=${userId}`);
         if (!res.ok) throw new Error("Error al obtener las tareas");
 
