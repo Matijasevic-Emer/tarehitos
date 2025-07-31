@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader } from "@/components/ui/player/Loader";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -15,10 +16,12 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // 👈 Estado para loader
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true); // 👈 Mostrar loader
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -43,11 +46,16 @@ export default function LoginPage() {
       router.push("/"); // Redirige a la home
     } catch (err: any) {
       setError(err.message || "Error al iniciar sesión");
+      setIsLoading(false); 
     }
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
-    <div className="flex flex-col justify-center items-center h-screen px-8">
+    <div className="flex flex-col items-center h-screen px-4 pt-10 md:pt-40">
       <h1 className="text-xl font-semibold text-gray-900 drop-shadow-xl pb-9">
         Iniciar Sesión
       </h1>

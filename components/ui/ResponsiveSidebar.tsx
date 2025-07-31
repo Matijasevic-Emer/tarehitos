@@ -14,7 +14,13 @@ import { useEffect, useState } from "react";
 
 export default function ResponsiveSidebar() {
   const [open, setOpen] = useState(false);
+  const [uid, setUid] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUid(localStorage.getItem("uid"));
+    }
+  }, []);
   useEffect(() => {
     const originalTitle = document.title;
     const handleVisibilityChange = () => {
@@ -38,13 +44,22 @@ export default function ResponsiveSidebar() {
             <Menu className="w-6 h-6" />
           </SheetTrigger>
           <SheetContent side="left">
-            <SheetHeader>
-              <Image
-                src="/assets/images/logo.png"
-                alt="Logo"
-                width={32}
-                height={32}
-              />
+            <SheetHeader className="flex flex-col items-center gap-2">
+              {uid ? (
+                <Image
+                  src="/assets/images/logo-on.png"
+                  alt="Logo"
+                  width={32}
+                  height={32}
+                />
+              ) : (
+                <Image
+                  src="/assets/images/logo-on.png"
+                  alt="Logo"
+                  width={32}
+                  height={32}
+                />
+              )}
               <SheetTitle className="text-center">Menú</SheetTitle>
             </SheetHeader>
 
@@ -57,16 +72,16 @@ export default function ResponsiveSidebar() {
                 <Home className="w-5 h-5" />
                 Inicio
               </Link>
-
+              {uid && (
               <Link
-                href="/task"
+                href="/tasks"
                 onClick={closeSheet}
                 className="flex items-center gap-2 text-lg cursor-pointer hover:underline"
               >
                 <ListTodo className="w-5 h-5" />
                 Tareas
               </Link>
-
+              )}
               <Link
                 href="/about"
                 onClick={closeSheet}
@@ -81,13 +96,21 @@ export default function ResponsiveSidebar() {
 
         <h1 className="text-lg font-bold">TareHitos</h1>
         <Link href="/">
-        <Image
-          src="/assets/images/logo.png"
-          alt="Logo"
-          width={32}
-          height={32}
-          
-        />
+          {uid ? (
+                <Image
+                  src="/assets/images/logo-on.png"
+                  alt="Logo"
+                  width={32}
+                  height={32}
+                />
+              ) : (
+                <Image
+                  src="/assets/images/logo-on.png"
+                  alt="Logo"
+                  width={32}
+                  height={32}
+                />
+              )}
         </Link>
       </div>
     </>

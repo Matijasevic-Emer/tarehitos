@@ -1,36 +1,55 @@
-import React from "react";
 import {
   Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 
-type Props = {
-    title:string,
-    desc:string,
-    date:Date,
-    isCompleted:boolean
+interface TarjetaTareaProps {
+  id: string;
+  name: string;
+  description: string;
+  estimatedFinishDate: string;
+  status: string;
+  points: string;
+  columnId: number;
 }
-const TareaTarjeta = ({title,desc,date,isCompleted}:Props) => {
+
+const TarjetaTarea = ({
+  name,
+  description,
+  estimatedFinishDate,
+  status,
+  points,
+  columnId,
+}: TarjetaTareaProps) => {
   return (
-    <Card>
+    <Card className="w-full shadow-md">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-amber-700">{title}</CardTitle>
-        <CardDescription className="text-sm text-gray-600">{desc}</CardDescription>
+        <CardTitle className="text-lg font-semibold text-amber-700">
+          {name}
+        </CardTitle>
+        <CardDescription className="text-sm text-gray-500">
+          {description}
+        </CardDescription>
       </CardHeader>
-        <CardAction>{isCompleted ? "👍" : "🤞"}</CardAction>
-      <CardContent>
-        <p>Card Content</p>
+
+      <CardContent className="text-sm space-y-2">
+        <p>
+          <strong>Estado:</strong> {status}
+        </p>
+        <p>
+          <strong>Pts:</strong> {points} | <strong>Columna:</strong> {columnId}
+        </p>
       </CardContent>
-      <CardFooter>
-        <p>{date?.toDateString()}</p>
+
+      <CardFooter className="text-xs text-muted-foreground">
+        Fin estimado: {new Date(estimatedFinishDate).toLocaleDateString()}
       </CardFooter>
     </Card>
   );
 };
 
-export default TareaTarjeta;
+export default TarjetaTarea;
