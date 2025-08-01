@@ -73,14 +73,14 @@ export default function ResponsiveSidebar() {
                 Inicio
               </Link>
               {uid && (
-              <Link
-                href="/tasks"
-                onClick={closeSheet}
-                className="flex items-center gap-2 text-lg cursor-pointer hover:underline"
-              >
-                <ListTodo className="w-5 h-5" />
-                Tareas
-              </Link>
+                <Link
+                  href="/tasks"
+                  onClick={closeSheet}
+                  className="flex items-center gap-2 text-lg cursor-pointer hover:underline"
+                >
+                  <ListTodo className="w-5 h-5" />
+                  Tareas
+                </Link>
               )}
               <Link
                 href="/about"
@@ -93,24 +93,25 @@ export default function ResponsiveSidebar() {
             </nav>
           </SheetContent>
         </Sheet>
-
-        <h1 className="text-lg font-bold">TareHitos</h1>
+        <Link href="/">
+          <h1 className="text-lg font-bold cursor-pointer">TareHitos</h1>
+        </Link>
         <Link href="/">
           {uid ? (
-                <Image
-                  src="/assets/images/logo-on.png"
-                  alt="Logo"
-                  width={32}
-                  height={32}
-                />
-              ) : (
-                <Image
-                  src="/assets/images/logo-on.png"
-                  alt="Logo"
-                  width={32}
-                  height={32}
-                />
-              )}
+            <Image
+              src="/assets/images/logo-on.png"
+              alt="Logo"
+              width={32}
+              height={32}
+            />
+          ) : (
+            <Image
+              src="/assets/images/logo-on.png"
+              alt="Logo"
+              width={32}
+              height={32}
+            />
+          )}
         </Link>
       </div>
     </>
